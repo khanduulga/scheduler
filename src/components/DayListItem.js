@@ -3,11 +3,6 @@ import classNames from "classnames";
 
 import "components/DayListItem.scss";
 
-// let buttonClass = classNames("button", {
-//   "button--confirm": props.confirm,
-//   "button--danger": props.danger
-// });
-
 export default function DayListItem(props) {
   let dayClass = classNames("day-list__item", {
     "day-list__item--selected": props.selected,
