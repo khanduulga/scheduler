@@ -10,8 +10,7 @@ export default function useVisualMode(initial) {
     replace ?
       setHistory(prev => {
         prev.pop()
-        prev.push(newMode)
-        return prev
+        return [...prev, newMode]
       }) :
       setHistory([...history, newMode]);
 
@@ -23,14 +22,16 @@ export default function useVisualMode(initial) {
       return;
     }
 
+
     setHistory(prev => {
       prev.pop();
+      const lastMode = prev[prev.length-1]
+      setMode(lastMode)
       return prev;
     })
+    
+    // const lastMode = history[history.length - 2]
 
-    const lastMode = history[history.length - 2]
-
-    setMode(lastMode)
   }
 
   return {

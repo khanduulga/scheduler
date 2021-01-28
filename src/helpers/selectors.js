@@ -12,9 +12,9 @@ const getInterview = (state, interview) => {
 };
 
 const getInterviewersForDay = (state, day) => {
-  const interviewersForDay = state.days.filter(i => i.name === day)[0]? state.days.filter(i => i.name === day)[0].appointments : [];
-  const filteredAppointments = appointmentsForDay.map(appointment => state.appointments[appointment]);
-  return filteredAppointments;
+  const interviewersForDay = state.days.filter(i => i.name === day)[0]? state.days.filter(i => i.name === day)[0].interviewers : [];
+  const filteredInterviewers = interviewersForDay.map(interviewer => state.interviewers[interviewer]);
+  return filteredInterviewers;
 };
 
 
