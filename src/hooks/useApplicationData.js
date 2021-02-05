@@ -23,7 +23,7 @@ export default function useApplicationData() {
       [id]: appointment
     };
 
-    return axios.put(`/api/appointments/${appointment.id}`, { appointment })
+    return axios.put(`/api/appointments/${appointment.id}`, { interview })
       .then((res) => {
         setState(prev => ({...prev, appointments}))
 
