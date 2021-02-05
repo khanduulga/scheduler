@@ -13,8 +13,7 @@ export default function useApplicationData() {
   const setDay = (day) => setState(prev => ({ ...prev, day }));
 
   function bookInterview(id, interview) {
-    console.log(id, interview);
-
+    // console.log(id, interview);
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -24,24 +23,28 @@ export default function useApplicationData() {
       [id]: appointment
     };
 
-    return axios.put(`/api/appointments/${id}`, { interview })
+    return axios.put(`/api/appointments/${appointment.id}`, { appointment })
       .then((res) => {
+        setState(prev => ({...prev, appointments}))
 
-        const spots = state.days.filter(curr => curr.name === state.day)[0].spots - 1
+        return axios.get("/api/days")
+        // const spots = state.days.filter(curr => curr.name === state.day)[0].spots - 1
 
 
-        const days = state.days.map(current => {
-          if (current.name === state.day) {
-            return { ...current, spots }
-          }
-          return { ...current }
-        })
+        // const days = state.days.map(current => {
+        //   if (current.name === state.day) {
+        //     return { ...current, spots }
+        //   }
+        //   return { ...current }
+        // })
 
-        setState((prev) => ({
-          ...prev,
-          appointments,
-          days
-        }))
+        // setState((prev) => ({
+        //   ...prev,
+        //   days
+        // }))
+      })
+      .then((days) => {
+        return setState(prev => ({...prev, days: days.data}))
       })
 
   }
@@ -77,11 +80,10 @@ export default function useApplicationData() {
 
   useEffect(() => {
     Promise.all([
-      axios.get("http://localhost:8001/api/days"),
-      axios.get("http://localhost:8001/api/appointments"),
-      axios.get("http://localhost:8001/api/interviewers")
+      axios.get("/api/days"),
+      axios.get("/api/appointments"),
+      axios.get("/api/interviewers")
     ]).then((all) => {
-      console.log(all);
       setState(prev => ({
         ...prev,
         days: all[0].data,

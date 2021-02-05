@@ -35,6 +35,7 @@ export default function Appointment(props) {
 
   function save(name, interviewer) {
     const interview = {
+      id: props.id,
       student: name,
       interviewer
     };
@@ -65,7 +66,7 @@ export default function Appointment(props) {
   }
 
   return (
-    <article className="appointment">
+    <article className="appointment" data-testid="appointment">
       <Header time={props.time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && (
